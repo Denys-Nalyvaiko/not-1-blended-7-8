@@ -6,3 +6,5 @@ import { dummyjsonApi } from "../services/api";
 // }
 
 export const fetchAllProducts = () => dummyjsonApi.get("/products");
+
+export const fetchProductById = (id) => dummyjsonApi.get(`/products/${id}`);

@@ -13,3 +13,25 @@ export const createProductsMarkup = (products) => {
     })
     .join("");
 };
+
+export const createProductByIdMarkup = ({
+  title,
+  brand,
+  description,
+  images,
+  price,
+  id,
+  stock,
+}) => {
+  return `
+    <div data-id="${id}">
+      <h2>${title}</h2>
+      <h3>${brand}</h3>
+      <img src="${images[0]}" alt="${title}">
+      <div>
+        <p>Опис: ${description}</p>
+        <p>Ціна: ${price}$</p>
+        <p>Залишок: ${stock}</p>
+      </div>
+    </div>`;
+};
