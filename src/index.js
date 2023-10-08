@@ -1,17 +1,30 @@
 import "./styles/normalize.css";
 import "./styles/index.css";
-import { fetchAllProducts, addProduct } from "./requests/products";
+
+import { fetchAllProducts, addProduct, fetchProductById} from "./requests/products";
 import {
   createProductsMarkup,
-  createNewProductMarkup,
+	createNewProductMarkup,
+  createProductByIdMarkup
+
+
 } from "./services/markupService";
 
 const refs = {
   allProductsList: document.querySelector("#allProducts"),
+
   addNewProductForm: document.querySelector("#addNewProductForm"),
-  newProductSection: document.querySelector("#newProductSection"),
+	newProductSection: document.querySelector("#newProductSection"),
+  singleProductForm: document.querySelector("#singleProductForm"),
+  singleProduct: document.querySelector("#singleProduct"),
 };
 const { addNewProductForm, newProductSection } = refs;
+
+
+
+
+//* !2
+
 
 addNewProductForm.addEventListener("submit", createNewProductByForm);
 
@@ -32,7 +45,25 @@ function createNewProductByForm(e) {
 fetchAllProducts().then(({ data: { products } }) => {
   console.log(products);
 
-  const markupCarts = createProductsMarkup(products);
+  // const markupCarts = createProductsMarkup(products);
 
-  refs.allProductsList.insertAdjacentHTML("beforeend", markupCarts);
+  // refs.allProductsList.insertAdjacentHTML("beforeend", markupCarts);
 });
+
+//* !1
+singleProductForm.addEventListener("submit", handleSingleProductFormSubmit);
+
+function handleSingleProductFormSubmit(event) {
+  event.preventDefault();
+
+  const id = event.target.elements.id.value;
+
+  fetchProductById(id).then(console.log);
+  fetchProductById(id).then(({ data }) => {
+    const markupCard = createProductByIdMarkup(data);
+
+    refs.singleProduct.innerHTML = markupCard;
+
+    refs.singleProductForm.reset();
+  });
+}
